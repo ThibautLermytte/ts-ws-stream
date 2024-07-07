@@ -1,7 +1,7 @@
 import Handler from '.';
 import { Event, CloseEvent, ErrorEvent } from 'ws';
 
-export default class Monitor extends Handler {
+export default class Monitor extends Handler<Event, Event> {
   public handle(event: Event): void {
     if (event.type === 'error') this.stop(event as ErrorEvent);
     else if (event.type === 'close') this.reconnect(event as CloseEvent);

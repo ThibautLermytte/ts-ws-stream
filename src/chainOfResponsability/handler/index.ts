@@ -1,15 +1,15 @@
-import { Event } from 'ws';
+// import { Event } from 'ws';
 
-export default abstract class Handler {
-  private _next: Handler | null = null;
+export default abstract class Handler<T = any, N = any> {
+  private _next: Handler<N> | null = null;
 
-  public abstract handle(event: Event): void;
+  public abstract handle(event: T): void;
 
-  public nextHandler(event: Event): void {
+  public nextHandler(event: N): void {
     if (this._next) this._next.handle(event);
   }
 
-  public set next(handler: Handler) {
+  public set next(handler: Handler<N>) {
     this._next = handler;
   }
 }
