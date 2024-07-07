@@ -1,5 +1,5 @@
 {
-  "name": "ts-algo-trading-stream",
+  "name": "ts-ws-stream",
   "version": "1.0.0",
   "main": "index.ts",
   "repository": "https://github.com/ThibautLermytte/ts-algo-trading-stream.git",
