@@ -8,7 +8,7 @@ import Handler from './chainOfResponsability/handler';
 export default class Stream {
   private sockets!: Socket[];
   private event!: EventEmitter;
-  private observer: Observer;
+  private observer!: Observer;
 
   constructor(...urls: string[]) {
     this.initObserver();
