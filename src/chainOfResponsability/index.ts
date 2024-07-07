@@ -6,8 +6,8 @@ export default class ChainOfResponsability {
   private front: Handler | null = null;
   private rear: Handler | null = null;
 
-  constructor(monitor?: Handler) {
-    this.addHandler(monitor ?? new Monitor());
+  constructor() {
+    this.addHandler(new Monitor());
   }
 
   public execute(event: Event) {
