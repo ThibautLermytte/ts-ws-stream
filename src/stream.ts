@@ -1,3 +1,4 @@
+import { LinkedListQueue } from 'ts-queue';
 import EventEmitter from 'events';
 import Observer from './observer';
 import Socket from './socket';
@@ -5,10 +6,12 @@ import Socket from './socket';
 export default class Stream {
   private sockets!: Socket[];
   private event!: EventEmitter;
+  private observer: Observer;
 
-  constructor(observer: Observer, ...urls: string[]) {
+  constructor(...urls: string[]) {
+    this.observer = new Observer(new LinkedListQueue());
     this.initEventEmiter();
-    this.buildSockets(observer, urls);
+    this.buildSockets(urls);
   }
 
   public initEventEmiter(): void {
@@ -16,11 +19,11 @@ export default class Stream {
     this.event.on('error', (error: Error) => this.stop(error));
   }
 
-  public buildSockets(observer: Observer, urls: string[]): void {
+  public buildSockets(urls: string[]): void {
     this.sockets = urls.map((url) => {
       const socket = new Socket(url, this.event);
 
-      socket.setObserver = observer;
+      socket.setObserver = this.observer;
       return socket;
     });
   }
