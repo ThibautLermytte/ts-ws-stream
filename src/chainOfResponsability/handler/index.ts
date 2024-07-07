@@ -1,5 +1,3 @@
-// import { Event } from 'ws';
-
 export default abstract class Handler<T = any, N = any> {
   private _next: Handler<N> | null = null;
 
