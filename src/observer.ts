@@ -1,5 +1,6 @@
 import { Event } from 'ws';
 import { Queue, QueueDecorator } from 'ts-queue';
+import Handler from './chainOfResponsability/handler';
 import ChainOfResponsability from './chainOfResponsability';
 
 export default class Observer extends QueueDecorator<Event> {
@@ -26,5 +27,9 @@ export default class Observer extends QueueDecorator<Event> {
 
   public set setCof(cof: ChainOfResponsability) {
     this.cof = cof;
+  }
+
+  public addHandler(...handlers: Handler[]): void {
+    handlers.forEach((handler) => this.cof.addHandler(handler));
   }
 }
