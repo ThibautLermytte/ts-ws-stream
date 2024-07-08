@@ -1,5 +1,6 @@
 import Handler from '.';
 import { Event, CloseEvent, ErrorEvent } from 'ws';
+import StreamErrorEmitter from '../../streamErrorEmitter';
 
 export default class Monitor extends Handler<Event, Event> {
   public handle(event: Event): void {
@@ -9,7 +10,7 @@ export default class Monitor extends Handler<Event, Event> {
   }
 
   private stop(event: ErrorEvent): void {
-    event.target.emit('message.error', new Error(event.error));
+    StreamErrorEmitter.emit(event.error);
   }
 
   private reconnect(event: CloseEvent): void {

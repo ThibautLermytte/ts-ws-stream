@@ -6,7 +6,7 @@ export default class Socket {
   private ws!: WebSocket;
   private observer!: Observer;
 
-  constructor(public readonly url: string, private stream: EventEmitter) {}
+  constructor(public readonly url: string) {}
 
   private get open(): boolean {
     return this.ws && this.ws.readyState < 2;
@@ -29,7 +29,6 @@ export default class Socket {
   public start(): void {
     this.ws = new WebSocket(this.url);
     this.ws.on('reconnect', () => this.reconnect());
-    this.ws.on('message.error', (error) => this.stream.emit('error', error));
     this.ws.onopen = (event: Event) => this.observer.update(event);
     this.ws.onmessage = (event: MessageEvent) => this.observer.update(event);
     this.ws.onclose = (event: CloseEvent) => this.observer.update(event);
