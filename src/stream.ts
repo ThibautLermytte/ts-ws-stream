@@ -44,6 +44,13 @@ export default class Stream {
     if (reason) console.error(reason);
   }
 
+  public stopByUrl(url: string): void {
+    const socket = this.sockets.find((socket) => socket.url === url);
+
+    if (socket) socket.stop();
+    else console.info('No socket found with this url.');
+  }
+
   public addHandler(...handlers: Handler[]): void {
     handlers.forEach((handler) => this.observer.addHandler(handler));
   }
